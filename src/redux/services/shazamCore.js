@@ -11,7 +11,9 @@ import { createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
             },
         }),
         endpoints: (builder) => ({
-            getTopCharts: builder.query({query: () => '/charts/world'}),
+        getTopCharts: builder.query({ query: () => '/charts/world'}),
+
+        getSongsByGenre: builder.query({ query: (genre) => `/charts/genre-world?genre_code=${genre}`}),
        
         getSongDetails: builder.query({ query: ({songid}) => `/tracks/details?track_id=${songid}` }),
 
@@ -20,13 +22,18 @@ import { createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
         getArtistDetails: builder.query({ query: (artistId) => `/artists/details?artist_id=${artistId}`}),
 
         getSongsByCountry: builder.query({ query: (countryCode) => `/charts/country?country_code=${countryCode}`}),
+
+        getSongsBySearch: builder.query({ query: (searchTerm) => `/search/multi?search_type=SONGS_ARTISTS&query=${searchTerm}` }),
+
          }),
     });
 
     export const {
         useGetTopChartsQuery,
+        useGetSongsByGenreQuery,
         useGetSongDetailsQuery,
         useGetSongRelatedQuery,
         useGetArtistDetailsQuery,
-        useGetSongsByCountryQuery
+        useGetSongsByCountryQuery,
+        useGetSongsBySearchQuery,
     } = shazamCoreAPI;
